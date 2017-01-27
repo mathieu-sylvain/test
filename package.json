@@ -1,0 +1,12 @@
+{
+  "name": "WebScrapper",
+  "version": "0.0.0",
+  "description": "A Web Scrapper",
+  "main": "scrapper.js",
+  "repository": "",
+  "author": "Mathieu Sylvain <gruyau13@gmail.com>",
+  "dependencies": {
+    "osmosis":"1.1.2",
+    "cheerio": "0.22.0"
+  }
+}
