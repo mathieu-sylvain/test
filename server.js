@@ -34,12 +34,18 @@ appServer.get('/', function (req, res) {
   res.send('GET request to the homepage');
 });
 
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+appServer.listen(port, ip);
+console.log('Server running on http://%s:%s', ip, port);
 
+/*
 var server = appServer.listen(process.env.PORT, process.env.IP, function () {
   var host = server.address().address;
   var port = server.address().port;
 
   console.log('Server listening at http://%s:%s', host, port);
 });
+*/
 
 console.log("Server file read");
