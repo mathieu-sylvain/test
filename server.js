@@ -1,11 +1,11 @@
-//var express = require('express');
+var express = require('express');
 
 // Custom imports
 //var fetcher = require('./scrapper');
 
 
 // Server creation
-//var appServer = express();
+var appServer = express();
 
 // Create gitrepo which is available for open shift in a nodejs app
 // Deploy to open-shift
@@ -28,6 +28,7 @@ const fetchHandler = (req, res) => {
 // Server route definitions
 /*
 appServer.get('/fetch/:title', fetchHandler);
+*/
 
 appServer.get('/', function (req, res) {
   res.send('GET request to the homepage');
@@ -40,5 +41,5 @@ var server = appServer.listen(process.env.PORT, process.env.IP, function () {
 
   console.log('Server listening at http://%s:%s', host, port);
 });
-*/
+
 console.log("Server file read");
