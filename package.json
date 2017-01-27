@@ -7,6 +7,7 @@
   "author": "Mathieu Sylvain <gruyau13@gmail.com>",
   "dependencies": {
     "osmosis":"1.1.2",
+    "express": "4.14.0",
     "cheerio": "0.22.0"
   }
 }
