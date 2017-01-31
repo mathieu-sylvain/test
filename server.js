@@ -1,4 +1,5 @@
 var express = require('express');
+var mongoose = require('mongoose');
 
 // Custom imports
 var fetcher = require('./scrapper');
@@ -16,7 +17,9 @@ var appServer = express();
 // https://ms-scrapper-mathieu-sylvain.c9users.io:8080/fetch/carcassonne
 // https://ide.c9.io/mathieu_sylvain/node-prediction
 
-// DB .mongolab.com
+// get app info (App Best Price - date), list extensions best price
+// get app 
+
 
 const fetchHandler = (req, res) => {
   fetcher.fetch(req.params.title);
@@ -35,3 +38,5 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 appServer.listen(port, ip);
 console.log('Server running on http://%s:%s', ip, port);
+
+mongoose.connect('mongodb://test:test@ds137729.mlab.com:37729/app_price');

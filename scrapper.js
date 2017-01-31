@@ -1,5 +1,6 @@
 var osmosis = require('osmosis');
 var cheerio = require('cheerio');
+var appDao = require('./dao');
 
 var urlDict = {};
 urlDict.catan = 'https://itunes.apple.com/ca/app/catan-hd/id390422167?mt=8';
@@ -29,25 +30,51 @@ const handleFetch = (title) => {
 const fetch = (url, title) => {
     console.log("Fetching: " + url);
     
-    
+    var appRecord = {};
     
     osmosis.get(url)
         .find(".price").then((priceMarkup) => { 
+            
+            
             var tag = cheerio.load(priceMarkup.toString());
-            console.log("Price of " + title + " is " + tag.text());
+            var appPrice = tag.text().trim().slice(1);
+            console.log("Price of " + title + " is " + appPrice);
+            
+            appRecord.name = title;
+            appRecord.price = appPrice;
+            appRecord.addon = [];
+            /*
+            var recordData = {
+                name: title,
+                price: appPrice
+            }
+            */
+            
+           // appDao.saveAppRecord(recordData)
+            
+            
         })
         .find(".in-app-purchases").then((extensionMarkup) => { 
             var tag = cheerio.load(extensionMarkup.toString());
 
             // Iterate over all extensions displayed
             tag('li').each(function(i, elem) {
+                var addOnRecord = {};
+                addOnRecord.name = elem.children[0].children[0].data;
+                addOnRecord.price = elem.children[1].children[0].data.trim().slice(1);
+                
+                appRecord.addon.push(addOnRecord);
+                
                 var title = elem.children[0].children[0].data;
                 var price = elem.children[1].children[0].data;
                 console.log("Extension: " + title + " price is: " + price);
             });
             
         })
-        .done(() => { console.log("Done"); });
+        .done(() => { 
+            console.log("Done"); 
+            appDao.saveAppRecord(appRecord);
+        });
 }
 
 var fetcher = {};
